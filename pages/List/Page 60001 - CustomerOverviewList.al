@@ -63,6 +63,16 @@ page 60001 CustomerOverviewList
                     CustomerOverviewMgmt.Run();
                 end;
             }
+            action(GetSet)
+            {
+                ApplicationArea = All;
+                trigger OnAction()
+                begin
+                    MyCode.Run();
+                end;
+            }
         }
     }
+    var
+        MyCode: Codeunit SalesQuantity;
 }
