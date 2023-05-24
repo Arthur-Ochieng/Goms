@@ -62,7 +62,6 @@ page 60003 MyAddress
 
         if sendTo = sendTo::Private then
             iAddressProvider := PrivateAddressProvider;
-
     end;
 
     var

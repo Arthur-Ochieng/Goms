@@ -42,13 +42,25 @@ page 60004 StatementCard
     {
         area(Processing)
         {
-            action(ActionName)
+            action(SetGetTable)
             {
                 ApplicationArea = All;
-                
                 trigger OnAction()
                 begin
-                    
+                    invent.Find('-');
+                    RecID := invent."Source Line ID";
+                    RecRef := RecID.GetRecord();
+                    // SetTable -> Sets the table to which a record variable refers as the same table as a RecordRef variable
+                    RecRef.SetTable(ProdOrder);
+                end;
+            }
+            action(GetTable)
+            {
+                ApplicationArea = All;
+                trigger OnAction()
+                begin
+                    RecRef.GetTable(ProdOrder);
+                    Message('The table used to get set %1', ProdOrder);
                 end;
             }
         }
@@ -81,4 +93,11 @@ page 60004 StatementCard
                 end;
         end;
     end;
+
+    var
+        invent: Record "Inventory Event Buffer";
+        RecID: RecordId; // RecordID contains the table number and the primary key of a table. We can use two methods -> GetRecord(), TableNo)()
+        RecRef: RecordRef; // RecordRef -> This object can refer to any table in the database
+        ProdOrder: Record "Prod. Order Component"; // Record is a complex data type
+        Cust: Record Customer;
 }

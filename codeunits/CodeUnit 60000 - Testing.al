@@ -1,6 +1,9 @@
 codeunit 60000 MyCodeunit
 {
     trigger OnRun()
+    var 
+        myInteger: Integer;
+        myResult: Integer;
     begin
         CustQuery.SetFilter(Quantity, '>10');
         CustQuery.Open();
@@ -9,6 +12,8 @@ codeunit 60000 MyCodeunit
         end;
         CustQuery.Close();
     end;
+
+    // Passing parameters by value
     
     var
         CustQuery: Query "Customer sales by quantity";

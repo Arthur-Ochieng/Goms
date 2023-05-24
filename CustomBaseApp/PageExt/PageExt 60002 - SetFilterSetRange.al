@@ -1,4 +1,4 @@
-pageextension 60002 "SetFileter and Range" extends "item List"
+pageextension 60002 "SetFilter and Range" extends "item List"
 {
     actions
     {
@@ -31,4 +31,22 @@ pageextension 60002 "SetFileter and Range" extends "item List"
 
         }
     }
+
+    // Setloadfields has been used to speed up the calculation of unit cost
+    trigger OnOpenPage()
+    var     
+        Item: Record Item;
+        Total: Decimal;
+        cnt: Integer; 
+    begin
+        Item.SetLoadFields(Item."Unit Cost");
+        if Item.FindFirst() then begin
+            repeat
+                Total += item."Unit Cost";
+                cnt += 1;
+            until Item.Next() = 0;
+            Message(Format(Total / cnt));
+        end;
+    end;
+    // The code finds the mean of the unit cost
 }
